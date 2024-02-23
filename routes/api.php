@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +21,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/auth/login', [AuthController::class, 'login']);
 
-Route::post('/create-order', function() {
+//* Group auth login,me,logout
+Route::prefix('auth')->group(function () {
+
+    Route::post('login', [AuthController::class, 'login']);
+
+Route::get('me', [AuthController::class, 'me'])->middleware(['auth:sanctum']);
+
+});
+
+//*Group middleware dari cook & create order
+Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::post('/create-order', function() {
     return 'create-order';
-})->middleware(['auth:sanctum', 'AbleCreateOrder']);
+})->middleware(['AbleCreateOrder']);
 
 Route::post('/cook-order', function() {
     return 'cook-order';
-})->middleware(['auth:sanctum', 'AbleCookOrder']);
+})->middleware(['AbleCookOrder']);
+
+Route::post('/create-user', [UserController::class, 'store'])->middleware(['AbleCreateUser']);
+
+});
+

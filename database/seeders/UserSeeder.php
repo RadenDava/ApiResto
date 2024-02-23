@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
 
         // User::insert([
         //     'name' => "manager",
-        //     'email' => "manager@gmail.com",
+        //     'email' => "dava@gmail.com",
         //     'password' => Hash::make('123'),
         //     'role_id' => 4
         // ]);

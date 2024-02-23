@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'AbleCreateOrder' => \App\Http\Middleware\AbleCreateOrder::class,
         'AbleCookOrder' => \App\Http\Middleware\AbleCookOrder::class,
+        'AbleCreateUser' => \App\Http\Middleware\AbleCreateUser::class,
     ];
 }
